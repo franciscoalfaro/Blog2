@@ -18,6 +18,9 @@ El proyecto se conecta a una API para obtener y gestionar los datos del blog.
   - Datos del usuario.
   - Publicaciones del usuario.
   - Título e imagen de portada.
+  ![Alt text](image-1.png)
+  ![Alt text](image.png)
+  ![Alt text](image-2.png)
   - Insignias.
   - Índice.
   - Descripción del Proyecto.
