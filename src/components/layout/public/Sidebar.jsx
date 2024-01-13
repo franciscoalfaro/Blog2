@@ -22,6 +22,7 @@ export const Sidebar = () => {
                     <li><NavLink to="inicio">Inicio</NavLink></li>
                     <li><NavLink to="publicaciones">publicaciones</NavLink></li>
                     <li><NavLink to="login">Iniciar sesion</NavLink></li>
+                    <li><NavLink to="registro">Crear Cuennta</NavLink></li>
                 </ul>
             </nav>
             <section>
