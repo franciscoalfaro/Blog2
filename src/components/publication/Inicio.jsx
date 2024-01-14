@@ -18,7 +18,7 @@ export const Inicio = () => {
                     </ul>
                 </div>
                 <span className="image object">
-                    <img src="../src/assets/img/pic10.jpg" alt="" />
+                    <img src="../src/assets/img/logo1.png" alt="" />
                 </span>
             </section>
             <section>

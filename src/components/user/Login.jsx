@@ -92,10 +92,9 @@ export const Login = () => {
             <div className="text-center">
               <button type="submit" className="primary">Ingresar</button>
             </div>
-            <NavLink className="nav-link" to="/recuperar">
-              <span>¿Olvidaste tu contraseña?</span>
-            </NavLink>
+            
           </div>
+          <NavLink className="nav-link" to="/recuperar"><span>¿Olvidaste tu contraseña?</span></NavLink>
         </div>
       </form>
     </>

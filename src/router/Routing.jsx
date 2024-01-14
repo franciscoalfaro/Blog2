@@ -13,6 +13,7 @@ import { CrearPublicacion } from '../components/publication/CrearPublicacion'
 import { Publicacion } from '../components/publication/Publicacion'
 import { Inicio } from '../components/publication/Inicio'
 import { Logout } from '../components/user/Logout'
+import { Search } from '../components/user/Search'
 
 export const Routing = () => {
   return (
@@ -24,6 +25,8 @@ export const Routing = () => {
             <Route index element={<Navigate to="inicio"></Navigate>}></Route>
             <Route path='inicio' element={<Inicio></Inicio>}></Route>
             <Route path='publicaciones' element={<Feed></Feed>}></Route>
+            <Route path='publicacion/:id' element={<Publicacion></Publicacion>}></Route>
+            <Route path='search/:articulo' element={<Search></Search>}></Route>
             <Route path='login' element={<Login></Login>}></Route>
             <Route path='registro' element={<Register></Register>}></Route>
             <Route path='recuperar' element={<Recovery></Recovery>}></Route>
@@ -35,7 +38,8 @@ export const Routing = () => {
             <Route path='publicaciones' element={<Feed></Feed>}></Route>
             <Route path='publicar' element={<CrearPublicacion></CrearPublicacion>}></Route>
             <Route path='publicacion/:id' element={<Publicacion></Publicacion>}></Route>
-            <Route path='myprofile' element={<Config></Config>}></Route>
+            <Route path='miperfil' element={<Config></Config>}></Route>
+            <Route path='search/:articulo' element={<Search></Search>}></Route>
             <Route path='perfil/:userId' element={<Profile></Profile>}></Route>
             <Route path='logout'element={<Logout></Logout>}></Route>
           </Route>
@@ -45,5 +49,5 @@ export const Routing = () => {
       </AuthProvider>
     </BrowserRouter>
 
-  )
+  ) 
 }

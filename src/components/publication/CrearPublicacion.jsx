@@ -3,61 +3,48 @@ import React from 'react'
 export const CrearPublicacion = () => {
   return (
     <>
-    <div>Crear publicacion</div>
-    <form method="post" action="#">
-      <div class="row gtr-uniform">
-        <div class="col-6 col-12-xsmall">
-          <input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
-        </div>
-        <div class="col-6 col-12-xsmall">
-          <input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
-        </div>
+      <div className="col-lg-5 text-center mx-auto">
+        <h1 className="text-white mb-2 mt-5">Hola que publicaras hoy!</h1>
 
-        <div class="col-12">
-          <select name="demo-category" id="demo-category">
-            <option value="">- Category -</option>
-            <option value="1">Manufacturing</option>
-            <option value="1">Shipping</option>
-            <option value="1">Administration</option>
-            <option value="1">Human Resources</option>
-          </select>
-        </div>
-
-        <div class="col-4 col-12-small">
-          <input type="radio" id="demo-priority-low" name="demo-priority" checked></input>
-            <label for="demo-priority-low">Low</label>
-        </div>
-        <div class="col-4 col-12-small">
-          <input type="radio" id="demo-priority-normal" name="demo-priority"></input>
-            <label for="demo-priority-normal">Normal</label>
-        </div>
-        <div class="col-4 col-12-small">
-          <input type="radio" id="demo-priority-high" name="demo-priority"></input>
-            <label for="demo-priority-high">High</label>
-        </div>
-
-        <div class="col-6 col-12-small">
-          <input type="checkbox" id="demo-copy" name="demo-copy"></input>
-            <label for="demo-copy">Email me a copy</label>
-        </div>
-        <div class="col-6 col-12-small">
-          <input type="checkbox" id="demo-human" name="demo-human" checked></input>
-            <label for="demo-human">I am a human</label>
-        </div>
-
-        <div class="col-12">
-          <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-        </div>
-
-        <div class="col-12">
-          <ul class="actions">
-            <li><input type="submit" value="Send Message" class="primary" /></li>
-            <li><input type="reset" value="Reset" /></li>
-          </ul>
-        </div>
       </div>
-    </form>
-  </>
+      <form method="post" action="#">
+        <div className="row gtr-uniform">
+          <div className="col-6 col-12-xsmall">
+            <input type="text" name="demo-name" id="demo-name" placeholder="Titulo" />
+          </div>
+          <div className="col-6 col-12-xsmall">
+            <input type="email" name="demo-email" id="demo-email" placeholder="Descripcion" />
+          </div>
+
+          <div class="upload-container">
+            <input type="file"></input>
+          </div>
+
+          <div className="col-12">
+            <select name="demo-category" id="demo-category">
+              <option value="">- Categoria -</option>
+              <option value="1">Manufacturing</option>
+              <option value="1">Shipping</option>
+              <option value="1">Administration</option>
+              <option value="1">Human Resources</option>
+            </select>
+          </div>
+
+
+
+          <div className="col-12">
+            <textarea name="demo-message" id="demo-message" placeholder="Tu articulo" rows="6"></textarea>
+          </div>
+
+          <div className="col-12">
+            <ul className="actions">
+              <li><input type="submit" value="Send Message" className="primary" /></li>
+              <li><input type="reset" value="Reset" /></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </>
 
   )
 }

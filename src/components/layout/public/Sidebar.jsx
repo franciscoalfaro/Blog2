@@ -1,17 +1,32 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import useAuth from '../../../hooks/useAuth';
+
 
 
 
 export const Sidebar = () => {
+    const { auth } = useAuth()
+    const navegar = useNavigate();
 
     //crear un hooks para las ultimas publicaciones (3) y despues seleccionar al hacer clic en la publicacion se debe de ir a leer la misma
 
+    const buscador = (e) => {
+        e.preventDefault()
+        let miBusqueda = e.target.search_field.value
+        //aca paso el parametro del campo de la busquera y la derivo a la ruta donde esta, con este codigo { replace: true } reemplazo lo que se escribe en la url
+        if(miBusqueda == ''){
+            console.log('debe de ingresar texto')
+        }
+        navegar("search/" + miBusqueda, { replace: true })
+
+    }
+
     return (
         <>
-            <section id="search" className="alt">
-                <form method="post" action="#">
-                    <input type="text" name="query" id="query" placeholder="Buscar" />
+            <section id="search">
+                <form onSubmit={buscador}>
+                    <input type="text" name="search_field" id="query" placeholder="Buscar Articulos"></input>
                 </form>
             </section>
             <nav id="menu">
@@ -22,7 +37,7 @@ export const Sidebar = () => {
                     <li><NavLink to="inicio">Inicio</NavLink></li>
                     <li><NavLink to="publicaciones">publicaciones</NavLink></li>
                     <li><NavLink to="login">Iniciar sesion</NavLink></li>
-                    <li><NavLink to="registro">Crear Cuennta</NavLink></li>
+                    <li><NavLink to="registro">Crear Cuenta</NavLink></li>
                 </ul>
             </nav>
             <section>

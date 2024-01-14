@@ -1,15 +1,30 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import useAuth from '../../../hooks/useAuth';
 
 export const Sidebar = () => {
+    const { auth } = useAuth()
+    const navegar = useNavigate();
+
+
+    const buscador = (e) => {
+        e.preventDefault()
+        let miBusqueda = e.target.search_field.value
+        //aca paso el parametro del campo de la busquera y la derivo a la ruta donde esta, con este codigo { replace: true } reemplazo lo que se escribe en la url
+        if(miBusqueda == ''){
+            console.log('debe de ingresar texto')
+        }
+        navegar("/auth/search/" + miBusqueda, { replace: true })
+
+    }
 
 
 
     return (
         <>
-            <section id="search" className="alt">
-                <form method="post" action="#">
-                    <input type="text" name="query" id="query" placeholder="Buscar" />
+            <section id="search">
+                <form onSubmit={buscador}>
+                    <input type="text" name="search_field" id="query" placeholder="Buscar Articulos"></input>
                 </form>
             </section>
             <nav id="menu">
@@ -20,6 +35,7 @@ export const Sidebar = () => {
                     <li><NavLink to="/auth/inicio">Inicio</NavLink></li>
                     <li><NavLink to="/auth/publicar">Crear publicacion</NavLink></li>
                     <li><NavLink to="/auth/publicaciones">publicaciones</NavLink></li>
+                    <li><NavLink to="/auth/miperfil">mi perfil</NavLink></li>
                     <li><NavLink to="/auth/logout">Cerrar sesion</NavLink></li>
                 </ul>
             </nav>
