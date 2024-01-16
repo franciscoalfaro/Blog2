@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export const Inicio = () => {
+
     return (
         <>
 
@@ -10,11 +11,11 @@ export const Inicio = () => {
                     <header>
                         <h1>Hola, Soy Francisco Alfaro<br />
                         </h1>
-                        <p>Este es mi blog personal</p>
+                        <p>Creador y desarrollador de Blog - Inspirate y comparte</p>
                     </header>
-                    <p>Aca ire subiendo mis aprendizajes, el detalle de mis proyectos personales</p>
+                    <p>Te invitamos a Resgistrarte y comparte tus conocimientos tus ideas e inspirate</p>
                     <ul className="actions">
-                        <li><Link to="#" className="button big">Leer mas</Link></li>
+                        <li><Link to="/registro" className="button">Registrate aqui</Link></li>
                     </ul>
                 </div>
                 <span className="image object">

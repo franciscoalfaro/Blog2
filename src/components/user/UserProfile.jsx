@@ -1,40 +1,39 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import { Global } from '../../helpers/Global'
 
-export const Profile = () => {
-  const { auth } = useAuth({})
-  const params = useParams()
-  const [usuario, setUsuario] = useState([])
+export const UserProfile = () => {
 
+
+  const { auth } = useAuth({})
+  
+
+  const [usuario, setUsuario] = useState([])
 
   useEffect(() => {
     profileSelect()
-
-  }, [params])
-
-
+    
+  }, [])
 
 
   const profileSelect = async () => {
 
     try {
+      const userId = auth._id
 
-      const userId = params.id
-
-      const request = await fetch(Global.url + 'user/profileselect/' + userId, {
+      const request = await fetch(Global.url + 'user/profile/' + userId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-
+          'Authorization': localStorage.getItem('token')
         }
       })
       const data = await request.json()
+   
 
       if (data.status === 'success') {
         setUsuario(data.user)
-        
 
       } else {
         console.log(data.message)
@@ -48,12 +47,8 @@ export const Profile = () => {
 
 
 
-
   return (
     <>
-
-
-
       <section id="banner">
         <div className="content">
           <header>
@@ -149,7 +144,6 @@ export const Profile = () => {
           </article>
         </div>
       </section>
-
     </>
   )
 }

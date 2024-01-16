@@ -81,7 +81,7 @@ export const Recovery = () => {
                   </ul>
                 )}
               </div>
-              <p className="text-sm mt-3 mb-0">Ya tienes cuenta? <NavLink to="/login" className="text-dark font-weight-bolder">Ingresar</NavLink></p>
+              <p className="text-sm mt-3 mb-0">Ya tienes cuenta? <NavLink to="/public/login" className="text-dark font-weight-bolder">Ingresar</NavLink></p>
             </div>
           </form>
         </div>

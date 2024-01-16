@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '../context/AuthProvider'
 import { PublicLayout } from '../components/layout/public/PublicLayout'
 import { PrivateLayout } from '../components/layout/private/PrivateLayout'
@@ -14,6 +14,12 @@ import { Publicacion } from '../components/publication/Publicacion'
 import { Inicio } from '../components/publication/Inicio'
 import { Logout } from '../components/user/Logout'
 import { Search } from '../components/user/Search'
+import { Error } from '../components/user/Error'
+import { Perfiles } from '../components/user/Perfiles'
+import { About } from '../components/user/About'
+import { MisPublicaciones } from '../components/publication/MisPublicaciones'
+import { UserProfile } from '../components/user/UserProfile'
+
 
 export const Routing = () => {
   return (
@@ -26,6 +32,9 @@ export const Routing = () => {
             <Route path='inicio' element={<Inicio></Inicio>}></Route>
             <Route path='publicaciones' element={<Feed></Feed>}></Route>
             <Route path='publicacion/:id' element={<Publicacion></Publicacion>}></Route>
+            <Route path='perfiles/' element={<Perfiles></Perfiles>}></Route>
+            <Route path='perfil/:id/' element={<Profile></Profile>}></Route>
+            <Route path='acerca/:id/' element={<About></About>}></Route>
             <Route path='search/:articulo' element={<Search></Search>}></Route>
             <Route path='login' element={<Login></Login>}></Route>
             <Route path='registro' element={<Register></Register>}></Route>
@@ -34,15 +43,24 @@ export const Routing = () => {
 
           <Route path='/auth' element={<PrivateLayout></PrivateLayout>}>
             <Route index element={<Navigate to="inicio"></Navigate>}></Route>
-            <Route path='inicio' element={<Inicio></Inicio>}></Route>
+            <Route path='inicio' element={<UserProfile></UserProfile>}></Route>
             <Route path='publicaciones' element={<Feed></Feed>}></Route>
+            <Route path='mispublicaciones' element={<MisPublicaciones></MisPublicaciones>}></Route>
             <Route path='publicar' element={<CrearPublicacion></CrearPublicacion>}></Route>
             <Route path='publicacion/:id' element={<Publicacion></Publicacion>}></Route>
-            <Route path='miperfil' element={<Config></Config>}></Route>
+            
             <Route path='search/:articulo' element={<Search></Search>}></Route>
-            <Route path='perfil/:userId' element={<Profile></Profile>}></Route>
+
+            <Route path='perfiles/' element={<Perfiles></Perfiles>}></Route>
+            <Route path='perfil/:id' element={<Profile></Profile>}></Route>
+            <Route path='miperfil' element={<Config></Config>}></Route>
+            <Route path='acerca/:id' element={<About></About>}></Route>
+
             <Route path='logout'element={<Logout></Logout>}></Route>
           </Route>
+
+
+          <Route path='*' element={<Error></Error>}></Route>
 
         </Routes>
 

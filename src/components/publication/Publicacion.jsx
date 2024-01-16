@@ -17,7 +17,7 @@ export const Publicacion = () => {
 
 
     const articuloId = params.id
-    console.log('este es el id del articulo', articuloId)
+    
 
     try {
       const request = await fetch(Global.url + 'articulo/obtenido/' + articuloId, {
@@ -28,7 +28,7 @@ export const Publicacion = () => {
 
       })
       const data = await request.json()
-      console.log(data)
+  
 
       if (data.status === 'success') {
         setArticulobuscado(data.articulo)
@@ -44,28 +44,21 @@ export const Publicacion = () => {
 
   }
 
-
-
-
-
-
-
-
   return (
     <>
       {articulobuscado ? (
         <>
           <section>
             <header className="main">
-              <h1>Resultado de busqueda</h1>
+              <h1>Articulo</h1>
             </header>
             <span className="image publi"><img src="../../src/assets/img/fondo2.png" alt="" /></span>
             <hr className="major" />
             <h2>{articulobuscado.titulo}</h2>
             <p>{articulobuscado.descripcion}</p>
             <p>{articulobuscado.contenido}</p>
-            <p>Publicado por {articulobuscado.user.name}  {articulobuscado.user.surname} {articulobuscado.user.create_at.split("T")[0]}</p>
-            <ReactTimeAgo date={new Date(articulobuscado.user.create_at) }></ReactTimeAgo>
+            <p>Publicado por {articulobuscado.userId.name}  {articulobuscado.userId.surname} {articulobuscado.userId.create_at.split("T")[0]}</p>
+            <ReactTimeAgo date={new Date(articulobuscado.userId.create_at) }></ReactTimeAgo>
           </section>
 
         </>
