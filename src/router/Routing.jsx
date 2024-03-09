@@ -19,6 +19,8 @@ import { Perfiles } from '../components/user/Perfiles'
 import { About } from '../components/user/About'
 import { MisPublicaciones } from '../components/publication/MisPublicaciones'
 import { UserProfile } from '../components/user/UserProfile'
+import {AddStack} from '../components/user/AddStack'
+
 
 
 export const Routing = () => {
@@ -45,11 +47,12 @@ export const Routing = () => {
             <Route index element={<Navigate to="inicio"></Navigate>}></Route>
             <Route path='inicio' element={<UserProfile></UserProfile>}></Route>
             <Route path='publicaciones' element={<Feed></Feed>}></Route>
-            <Route path='mispublicaciones' element={<MisPublicaciones></MisPublicaciones>}></Route>
+            <Route path='mis-publicaciones' element={<MisPublicaciones></MisPublicaciones>}></Route>
             <Route path='publicar' element={<CrearPublicacion></CrearPublicacion>}></Route>
             <Route path='publicacion/:id' element={<Publicacion></Publicacion>}></Route>
             
             <Route path='search/:articulo' element={<Search></Search>}></Route>
+            <Route path='agregarstack' element={<AddStack></AddStack>}></Route>
 
             <Route path='perfiles/' element={<Perfiles></Perfiles>}></Route>
             <Route path='perfil/:id' element={<Profile></Profile>}></Route>

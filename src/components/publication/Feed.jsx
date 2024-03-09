@@ -37,6 +37,7 @@ export const Feed = () => {
       })
       const data = await request.json()
       if (data.status === 'success') {
+
         setArticulos(data.articulos)
         setTotalPages(data.totalPages)
 
@@ -58,14 +59,20 @@ export const Feed = () => {
 
       <section>
         <header className="main">
-          <h1>Publicaciones</h1>
+          <h1>Feed Publicaciones</h1>
         </header>
         {articulos.length > 0 && (
           <div>
             {articulos.map((articulo) => (
               <div key={articulo._id}>
-                <span className="image publi"><img src="../../src/assets/img/fondo2.png" alt="" /></span>
-                <hr className="major" />
+                <span className='image publi'>
+                  {articulos.imagen !== "default2.png" ? (
+                    <img src={Global.url + "articulo/media/" + articulos.imagen} alt='' />
+                  ) : (
+                    <img src={avatar} alt='' />
+                  )}
+                </span>
+
                 <h2>{articulo.titulo}</h2>
                 <p>{articulo.descripcion}</p>
                 <p>{articulo.contenido}</p>
@@ -77,8 +84,10 @@ export const Feed = () => {
                     <li><NavLink to={`/publicacion/${articulo._id}`} className="button">Leer mas</NavLink></li>
                   )}
                 </ul>
+                <hr className="major" />
               </div>
             ))}
+
             <ul className="pagination">
               <li><span className={`button ${page === 1 ? 'disabled' : ''}`} onClick={() => setPage(page - 1)}>Anterior</span></li>
               {Array.from({ length: totalPages }, (_, index) => (

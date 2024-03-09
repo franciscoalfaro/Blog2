@@ -7,13 +7,15 @@ export const UserProfile = () => {
 
 
   const { auth } = useAuth({})
-  
+  const [page, setPage] = useState(1)
+  const [stacks, setStacks] = useState([])
+  const [totalPages, setTotalPages] = useState(1)
 
   const [usuario, setUsuario] = useState([])
 
   useEffect(() => {
     profileSelect()
-    
+
   }, [])
 
 
@@ -30,7 +32,7 @@ export const UserProfile = () => {
         }
       })
       const data = await request.json()
-   
+
 
       if (data.status === 'success') {
         setUsuario(data.user)
@@ -47,6 +49,52 @@ export const UserProfile = () => {
 
 
 
+  const nextPage = () => {
+    let next = page + 1;
+    setPage(next);
+
+  };
+
+  useEffect(() => {
+    getStack(page)
+
+  }, [page])
+
+
+  const getStack = async (nextPage = 1) => {
+
+    try {
+
+      const userId = auth._id
+      console.log(userId)
+
+      const request = await fetch(Global.url + 'stack/list/' + nextPage, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+
+        }
+      })
+      const data = await request.json()
+
+      if (data.status === 'success') {
+        setStacks(data.stack)
+        setTotalPages(data.totalPages)
+
+      } else {
+        console.log(data.message)
+      }
+
+    } catch (error) {
+
+    }
+  }
+
+
+
+
+
   return (
     <>
       <section id="banner">
@@ -56,7 +104,7 @@ export const UserProfile = () => {
             </h1>
             <p>{usuario.bio}</p>
           </header>
-          <p>Aca ire subiendo mis aprendizajes, el detalle de mis proyectos personales</p>
+          <p>{usuario.biodos}</p>
           <ul className="actions">
             {auth && auth._id ? (
               <li><Link to={`/auth/acerca/${usuario._id}`} className="button">Leer mas</Link></li>
@@ -70,49 +118,47 @@ export const UserProfile = () => {
           <img src="../src/assets/img/logo1.png" alt="" />
         </span>
       </section>
+
       <section>
+
         <header className="major">
-          <h2>Mi Stack</h2>
+          <h2>Mis Stack </h2>
         </header>
         <div className="features">
-          <article>
-            <span className="icon">
-              <img src="../src/assets/img/react2.png" className="img-iconos" ></img>
-            </span>
-            <div className="content">
-              <h3>REACT</h3>
-              <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-            </div>
-          </article>
-          <article>
-            <span className="icon">
-              <img src="../src/assets/img/mongodb.png" className="img-iconos" ></img>
-            </span>
-            <div className="content">
-              <h3>MONGODB</h3>
-              <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-            </div>
-          </article>
-          <article>
-            <span className="icon">
-              <img src="../src/assets/img/mern2.png" className="img-iconos" ></img>
-            </span>
-            <div className="content">
-              <h3>MERN</h3>
-              <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-            </div>
-          </article>
-          <article>
-            <span className="icon">
-              <img src="../src/assets/img/postman.png" className="img-iconos" ></img>
-            </span>
-            <div className="content">
-              <h3>POSTMAN</h3>
-              <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-            </div>
-          </article>
+          {stacks.length > 0 ? (
+            stacks.map((stack) => (
+              <article key={stack._id}>
+                <span className="icon">
+                  <img src={`/src/assets/img/${stack.name}.png`} className="img-iconos" ></img>
+                </span>
+                <div className="content">
+                  <h3>{stack.name}</h3>
+                  <p>{stack.description}</p>
+                </div>
+              </article>
+            ))
+          ) : (
+            <p>No tiene stack disponibles.</p>
+          )}
         </div>
+
+
+
+        <ul className="pagination">
+          <li><span className={`button ${page === 1 ? 'disabled' : ''}`} onClick={() => setPage(page - 1)}>Anterior</span></li>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <li key={index}>
+              <a href="#" className={`page ${page === index + 1 ? 'active' : ''}`} onClick={() => setPage(index + 1)}> {index + 1} </a>
+            </li>
+          ))}
+          <li>
+            <span className={`button ${page === totalPages ? 'disabled' : ''}`} onClick={nextPage}>Siguiente</span>
+          </li>
+        </ul>
       </section>
+
+
+
       <section>
         <header className="major">
           <h2>Mis Proyectos</h2>

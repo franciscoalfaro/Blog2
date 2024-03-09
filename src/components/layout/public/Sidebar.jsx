@@ -21,6 +21,10 @@ export const Sidebar = () => {
 
     }
 
+    
+
+
+
     return (
         <>
             <section id="search">

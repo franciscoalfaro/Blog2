@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { Global } from '../../helpers/Global'
 import { NavLink } from 'react-router-dom'
+import avatar from '../../assets/img/fondo2.png'
 
 export const MisPublicaciones = () => {
 
@@ -41,7 +42,7 @@ export const MisPublicaciones = () => {
       if (data.status === 'success') {
         setArticulos(data.articulos)
         setTotalPages(data.totalPages)
-       
+
 
       } else {
         console.log(data.message)
@@ -61,16 +62,23 @@ export const MisPublicaciones = () => {
         <div>
           {articulos.map((articulo) => (
             <div key={articulo._id}>
-              <span className="image publi"><img src="../../src/assets/img/fondo2.png" alt="" /></span>
-              <hr className="major" />
+              <span className='image publi'>
+                {articulo.imagen !== "default.png" ? (
+                  <img src={Global.url + "articulo/media/" + articulo.imagen} alt='' />
+                ) : (
+                  <img src={avatar} alt='' />
+                )}
+              </span>
               <h2>{articulo.titulo}</h2>
               <p>{articulo.descripcion}</p>
               <p>{articulo.contenido}</p>
               <ul className="actions">
-                  <li><NavLink to={`/auth/publicacion/${articulo._id}`} className="button">Leer mas</NavLink></li>              
+                <li><NavLink to={`/auth/publicacion/${articulo._id}`} className="button">Leer mas</NavLink></li>
               </ul>
+              <hr className="major"></hr>
             </div>
           ))}
+          
           <ul className="pagination">
             <li><span className={`button ${page === 1 ? 'disabled' : ''}`} onClick={() => setPage(page - 1)}>Anterior</span></li>
             {Array.from({ length: totalPages }, (_, index) => (

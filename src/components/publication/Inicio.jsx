@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export const Inicio = () => {
+    const params = useParams()
 
     return (
         <>
@@ -22,14 +23,15 @@ export const Inicio = () => {
                     <img src="../src/assets/img/logo1.png" alt="" />
                 </span>
             </section>
+
             <section>
                 <header className="major">
-                    <h2>Mi Stack</h2>
+                    <h2>Mis stack </h2>
                 </header>
                 <div className="features">
                     <article>
                         <span className="icon">
-                            <img src="../src/assets/img/react2.png" className="img-iconos" ></img>
+                            <img src="../src/assets/img/react.png" className="img-iconos" ></img>
                         </span>
                         <div className="content">
                             <h3>REACT</h3>
@@ -47,7 +49,7 @@ export const Inicio = () => {
                     </article>
                     <article>
                         <span className="icon">
-                            <img src="../src/assets/img/mern2.png" className="img-iconos" ></img>
+                            <img src="../src/assets/img/mern.png" className="img-iconos" ></img>
                         </span>
                         <div className="content">
                             <h3>MERN</h3>
@@ -65,9 +67,10 @@ export const Inicio = () => {
                     </article>
                 </div>
             </section>
+
             <section>
                 <header className="major">
-                    <h2>Mis Proyectos</h2>
+                    <h2>Mis Proyectos del creador del sitio</h2>
                 </header>
                 <div className="posts">
                     <article>

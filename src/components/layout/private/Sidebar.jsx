@@ -26,7 +26,7 @@ export const Sidebar = () => {
         <>
             <section id="search">
                 <form onSubmit={buscador}>
-                    <input type="text" name="search_field" id="query" placeholder="Buscar Articulos"></input>
+                    <input type="text" name="search_field" id="query" placeholder="Buscar Articulos" required></input>
                 </form>
             </section>
             <nav id="menu">
@@ -35,8 +35,9 @@ export const Sidebar = () => {
                 </header>
                 <ul>
                     <li><NavLink to="/auth/inicio">Inicio</NavLink></li>
-                    <li><NavLink to="/auth/publicar">Crear publicacion</NavLink></li>
-                    <li><NavLink to="/auth/mispublicaciones">Mis Publicaciones</NavLink></li>
+                    <li><NavLink to="/auth/agregarstack">Agregar Stack</NavLink></li>
+                    <li><NavLink to="/auth/publicar/">Crear publicacion</NavLink></li>
+                    <li><NavLink to="/auth/mis-publicaciones">Mis Publicaciones</NavLink></li>
                     <li><NavLink to="/auth/miperfil">Mis Datos</NavLink></li>
                     <li><NavLink to="/auth/perfiles">otros perfiles</NavLink></li>
                     <li><NavLink to="/auth/logout">Cerrar sesion</NavLink></li>

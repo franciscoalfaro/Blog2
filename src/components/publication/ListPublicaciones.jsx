@@ -22,8 +22,9 @@ export const ListPublicaciones = () => {
             });
             const data = await request.json();
             if (data.status === 'success') {
-                
+
                 setUltimos(data.articulos);
+                console.log(data.articulos)
             } else {
                 console.log(data.message);
             }
@@ -42,9 +43,9 @@ export const ListPublicaciones = () => {
                     <div className="mini-posts">
                         {ultimos.map((ultimo) => (
                             <article key={ultimo._id} className='image'>
-                                <NavLink  className='image'>
-                                {ultimo.imagen != "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} alt=''></img>}
-                                {ultimo.imagen == "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen}></img>}
+                                <NavLink className='image'>
+                                    {ultimo.imagen != "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} alt=''></img>}
+                                    {ultimo.imagen == "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen}></img>}
                                 </NavLink>
                                 <p>{ultimo.titulo}</p>
                                 <p>{ultimo.descripcion}</p>

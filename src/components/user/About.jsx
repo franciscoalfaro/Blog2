@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { NavLink, useParams } from 'react-router-dom'
 import { Global } from '../../helpers/Global'
+import avatar from '../../assets/img/fondo2.png'
 
 export const About = () => {
 
@@ -60,8 +61,14 @@ export const About = () => {
       <div>
         {articulos.map((articulo) => (
           <div key={articulo._id}>
-            <span className="image publi"><img src="../../src/assets/img/fondo2.png" alt="" /></span>
-            <hr className="major" />
+            <span className='image publi'>
+              {articulo.imagen !== "default.png" ? (
+                <img src={Global.url + "articulo/media/" + articulo.imagen} alt='' />
+              ) : (
+                <img src={avatar} alt='' />
+              )}
+            </span>
+            
             <h2>{articulo.titulo}</h2>
             <p>{articulo.descripcion}</p>
             <p>{articulo.contenido}</p>
@@ -73,6 +80,7 @@ export const About = () => {
                 <li><NavLink to={`/publicacion/${articulo._id}`} className="button">Leer mas</NavLink></li>
               )}
             </ul>
+            <hr className="major" />
           </div>
         ))}
         <ul className="pagination">

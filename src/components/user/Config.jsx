@@ -212,8 +212,19 @@ export const Config = () => {
             <input type="password" name="password" id="demo-password" placeholder="password" />
           </div>
 
+          <div className="col-6 col-12-xsmall">
+          </div>
+
+          <h3>La siguiente seccion se mostrara en tu perfil</h3>
+
           <div className="col-12">
+            <label htmlFor='bio'>Acerca de ti</label>
             <textarea name="bio" id="demo-message" placeholder="Biografia" rows="6" defaultValue={auth.bio}></textarea>
+          </div>
+
+          <div className="col-12">
+            <label htmlFor='biodos'>Mas sobre ti o lo que quieras</label>
+            <textarea name="biodos" id="demo-messagedos" placeholder="Biografia" rows="6" defaultValue={auth.biodos}></textarea>
           </div>
 
           <div className="upload-container">

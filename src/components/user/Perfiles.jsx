@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import { Global } from '../../helpers/Global'
 
+import avatar from '../../../src/assets/img/logo1.png'
+
 export const Perfiles = () => {
 
 
@@ -38,11 +40,10 @@ export const Perfiles = () => {
                 }
             })
             const data = await request.json()
-          
+
             if (data.status === 'success') {
                 setUsuarios(data.usuarios)
                 setTotalPages(data.totalPages)
-
             } else {
                 console.log(data.message)
             }
@@ -64,9 +65,9 @@ export const Perfiles = () => {
                         <div className="content">
                             <header>
                                 <h1>{users.name}<br /></h1>
-                                <p>Este es mi blog personal</p>
+                                <p>{users.bio}</p>
                             </header>
-                            <p>Aca ire subiendo mis aprendizajes, el detalle de mis proyectos personales</p>
+                            <p>{users.biodos}</p>
                             <ul className="actions">
                                 {auth && auth._id ? (
                                     <li><Link to={`/auth/perfil/${users._id}`} className="button">Leer mas</Link></li>
@@ -75,8 +76,9 @@ export const Perfiles = () => {
                                 )}
                             </ul>
                         </div>
-                        <span className="image object">
-                            <img src="../src/assets/img/logo1.png" alt="" />
+                        <span className="image perfillist">
+                            {users.image == 'default.png' && <img src={avatar} className="" alt=""></img>}
+                            {users.image != 'default.png' && <img src={Global.url + "user/avatar/" + users.image} className="" alt=""></img>}
                         </span>
                     </section>
                 ))

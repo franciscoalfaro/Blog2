@@ -3,6 +3,7 @@ import useAuth from '../../hooks/useAuth'
 import { Global } from '../../helpers/Global'
 import { useForm } from '../../hooks/useForm'
 import { EliminarCategoriasModal } from './EliminarCategoriasModal'
+import { CrearCategoria } from './CrearCategoria'
 
 
 
@@ -12,8 +13,15 @@ export const CrearPublicacion = () => {
   const [publicacion, setPublicacion] = useState([])
   const [categorias, setCategorias] = useState([])
 
+  const [newCategorias, setNewCategorias] = useState([])
 
   const [selectedOption, setSelectedOption] = useState('')
+
+  const [forceUpdate, setForceUpdate] = useState(false);
+
+  const [categoriaOculta, setCategoriaOculta] = useState(true);
+
+  const [stored, setStored] = useState([])
 
 
   const crearArticulo = async (e) => {
@@ -42,6 +50,7 @@ export const CrearPublicacion = () => {
       const data = await request.json()
 
       if (data.status === "success") {
+       
         setPublicacion()
         Swal.fire({
           position: 'center',
@@ -50,8 +59,6 @@ export const CrearPublicacion = () => {
           showConfirmButton: true
         });
 
-        const myForm = document.querySelector("#articulo-form")
-        myForm.reset()
 
       } else {
         Swal.fire({
@@ -62,17 +69,90 @@ export const CrearPublicacion = () => {
         });
 
       }
+      //subir imag
+      const fileInput = document.querySelector("#file");
+      if (data.status == "success" && fileInput.files[0]) {
+        // Recoger imagen a subir
+        const compressedFile = await compressImage(fileInput.files[0], 800, 600, 0.7);
+
+        // Crear FormData con la imagen comprimida
+        const formData = new FormData();
+        formData.append('file0', compressedFile);
+
+        // Peticion para enviar el fichero
+        const uploadRequest = await fetch(Global.url + "articulo/upload/" + data.newArticulo._id, {
+          method: "POST",
+          body: formData,
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        })
+        const uploadData = await uploadRequest.json()
+        if (uploadData.status == "success") {
+
+          setStored("stored")
+        } else {
+          setStored("error")
+        }
+      }
+
+      // Función para comprimir la imagen
+      async function compressImage(file, maxWidth, maxHeight, quality) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+              // Crear un lienzo (canvas) para dibujar la imagen comprimida
+              const canvas = document.createElement('canvas');
+              let width = img.width;
+              let height = img.height;
+              if (width > maxWidth) {
+                // Redimensionar la imagen si supera el ancho máximo
+                height *= maxWidth / width;
+                width = maxWidth;
+              }
+              if (height > maxHeight) {
+                // Redimensionar la imagen si supera la altura máxima
+                width *= maxHeight / height;
+                height = maxHeight;
+              }
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              // Dibujar la imagen en el lienzo con el tamaño redimensionado
+              ctx.drawImage(img, 0, 0, width, height);
+              // Convertir el lienzo a un archivo comprimido (blob)
+              canvas.toBlob((blob) => {
+                // Crear un nuevo archivo con el blob comprimido
+                const compressedFile = new File([blob], file.name, { type: file.type });
+                resolve(compressedFile);
+              }, file.type, quality);
+            };
+          };
+          reader.onerror = (error) => reject(error);
+        });
+      }
+
+      if (data == null) {
+        console.log("form vacio")
+      }
+
+
     }
+    const myForm = document.querySelector("#articulo-form")
+    myForm.reset()  
+
+
 
   }
 
 
-
-
   useEffect(() => {
     listCategorias()
-
-  }, [])
+  }, [newCategorias])
 
 
 
@@ -90,7 +170,7 @@ export const CrearPublicacion = () => {
 
       if (data.status === "success") {
         setCategorias(data.categorias)
-        console.log(data)
+      
 
       }
     } catch (error) {
@@ -100,6 +180,57 @@ export const CrearPublicacion = () => {
 
   }
 
+
+  //crear categoria swal
+  const crearcategorialSwal = () => {
+    Swal.fire({
+      title: "Crear Categoria",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+        name: "name", // Asignar el nombre del campo de entrada
+      },
+      showCancelButton: true,
+      confirmButtonText: "Crear",
+      showLoaderOnConfirm: true,
+      preConfirm: async (inputValue) => {
+        try {
+          const request = await fetch(Global.url + 'categoria/crearcategoria', {
+            method: "POST",
+            body: JSON.stringify({ name: inputValue }), // Enviar el valor del campo de entrada
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': localStorage.getItem('token'),
+            }
+          });
+
+          const data = await request.json();
+
+          if (data.status === "success") {
+            setCategorias(prevCategorias => [...prevCategorias, data.categoria]);
+
+          }
+
+          return data; // Devolver la respuesta completa
+        } catch (error) {
+          throw new Error(`Request failed: ${error}`);
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Categoria creada correctamente',
+        });
+      }
+    });
+  };
+
+
+
+  const toggleCategoria = () => {
+    setCategoriaOculta(!categoriaOculta);
+  };
 
   //elementos para el option select
   const opcioneDelselect = (event) => {
@@ -112,9 +243,6 @@ export const CrearPublicacion = () => {
     opcioneDelselect(event);
     changed(event);
   };
-
-
-
 
 
   return (
@@ -134,7 +262,7 @@ export const CrearPublicacion = () => {
           </div>
 
           <div className="upload-container">
-            <input type="file" name='file0' id='file0' onChange={changed}></input>
+            <input type="file" name='file0' id='file' onChange={changed}></input>
           </div>
 
           <div className="col-12">
@@ -148,6 +276,24 @@ export const CrearPublicacion = () => {
             </select>
           </div>
 
+          <div className="col-3 col-12-xsmall">
+            <label>Quieres crear una nueva categoria?</label>
+            <button type='button' className='button primary small' onClick={crearcategorialSwal}>
+              Crear Nueva Categoría
+            </button>
+          </div>
+
+          <div className="col-3 col-12-xsmall">
+            <label>Quieres eliminar una categoria?</label>
+            <button type='button' className='button primary small' onClick={toggleCategoria}>
+              {categoriaOculta ? 'Eliminar Categoria' : 'Ocultar'}
+            </button>
+
+            <div className="ocultado" id='ocultado' hidden={categoriaOculta}>
+              <EliminarCategoriasModal forceUpdate={() => setForceUpdate(!forceUpdate)}></EliminarCategoriasModal>
+            </div>
+          </div>
+
           <div className="col-12">
             <textarea name="contenido" placeholder="Tu articulo" rows="6" onChange={changed} required></textarea>
           </div>
@@ -159,6 +305,7 @@ export const CrearPublicacion = () => {
           </div>
         </div>
       </form>
+
 
     </>
 
