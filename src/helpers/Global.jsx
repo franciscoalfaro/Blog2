@@ -1,4 +1,4 @@
 export const Global={
-    //url:"https://api.testsocial.org/api/"
-    url:"http://localhost:3000/api/"
+    //url:"https://blogapi.comogasto.com/api/",
+    url:"http://localhost:4000/api/"
 }

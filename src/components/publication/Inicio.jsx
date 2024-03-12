@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
+import avatar from '../../../src/assets/img/logo1.png'
 
 export const Inicio = () => {
     const params = useParams()
@@ -20,7 +21,7 @@ export const Inicio = () => {
                     </ul>
                 </div>
                 <span className="image object">
-                    <img src="../src/assets/img/logo1.png" alt="" />
+                    <img src={avatar} alt="" />
                 </span>
             </section>
 

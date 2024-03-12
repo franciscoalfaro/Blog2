@@ -9,6 +9,8 @@ export const Config = () => {
   const { auth, setAuth } = useAuth()
   const [saved, setSaved] = useState("not_saved")
 
+  console.log(auth)
+
 
   const updateUser = async (e) => {
     e.preventDefault()
@@ -83,7 +85,7 @@ export const Config = () => {
           method: "POST",
           body: formData,
           headers: {
-            "Authorization": token
+            'Authorization': localStorage.getItem('token')
           }
         });
 
@@ -111,7 +113,7 @@ export const Config = () => {
           method: "POST",
           body: compressedFormData,
           headers: {
-            "Authorization": token
+            'Authorization': localStorage.getItem('token')
           }
         });
 

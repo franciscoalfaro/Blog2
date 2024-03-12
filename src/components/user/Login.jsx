@@ -94,7 +94,7 @@ export const Login = () => {
             </div>
             
           </div>
-          <NavLink className="nav-link" to="/public/recuperar"><span>¿Olvidaste tu contraseña?</span></NavLink>
+          <NavLink className="nav-link" to="/recuperar"><span>¿Olvidaste tu contraseña?</span></NavLink>
         </div>
       </form>
     </>

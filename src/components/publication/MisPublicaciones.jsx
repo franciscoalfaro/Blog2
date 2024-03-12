@@ -43,6 +43,8 @@ export const MisPublicaciones = () => {
         setArticulos(data.articulos)
         setTotalPages(data.totalPages)
 
+        console.log(data)
+
 
       } else {
         console.log(data.message)
@@ -53,6 +55,37 @@ export const MisPublicaciones = () => {
     }
   }
 
+  const DeletePublicacion = async (ArticuloId) => {
+
+
+    try {
+      const request = await fetch(Global.url + 'articulo/delete/' + ArticuloId, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("token")
+        }
+      });
+
+      const data = await request.json(); // Espera a que la promesa se resuelva
+      console.log(data);
+
+      if (data.status === "success") {
+        listarMisPublicaciones();
+      } else {
+        console.log(data.message);
+      }
+
+    } catch (error) {
+      console.log(error.message); // Error.message en lugar de data.message
+    }
+  }
+
+
+
+
+
+
   return (
     <section>
       <header className="main">
@@ -61,7 +94,11 @@ export const MisPublicaciones = () => {
       {articulos.length > 0 && (
         <div>
           {articulos.map((articulo) => (
-            <div key={articulo._id}>
+            <div key={articulo._id} className="publicacion">
+              {auth._id === articulo.userId &&
+               <i onClick={() => DeletePublicacion(articulo._id)} className="bi bi-trash"><span>Eliminar publicacion</span></i>
+               
+              }
               <span className='image publi'>
                 {articulo.imagen !== "default.png" ? (
                   <img src={Global.url + "articulo/media/" + articulo.imagen} alt='' />
@@ -69,6 +106,8 @@ export const MisPublicaciones = () => {
                   <img src={avatar} alt='' />
                 )}
               </span>
+
+  
               <h2>{articulo.titulo}</h2>
               <p>{articulo.descripcion}</p>
               <p>{articulo.contenido}</p>
@@ -78,7 +117,7 @@ export const MisPublicaciones = () => {
               <hr className="major"></hr>
             </div>
           ))}
-          
+
           <ul className="pagination">
             <li><span className={`button ${page === 1 ? 'disabled' : ''}`} onClick={() => setPage(page - 1)}>Anterior</span></li>
             {Array.from({ length: totalPages }, (_, index) => (
@@ -88,10 +127,7 @@ export const MisPublicaciones = () => {
               <span className={`button ${page === totalPages ? 'disabled' : ''}`} onClick={nextPage}>Siguiente</span></li>
           </ul>
         </div>
-
       )}
-
-
     </section>
   )
 }

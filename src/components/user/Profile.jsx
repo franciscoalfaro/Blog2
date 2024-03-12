@@ -38,7 +38,7 @@ export const Profile = () => {
       const data = await request.json()
 
       if (data.status === 'success') {
-        setUsuario(data.user)        
+        setUsuario(data.user)      
 
       } else {
         console.log(data.message)
