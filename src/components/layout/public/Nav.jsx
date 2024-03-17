@@ -39,7 +39,7 @@ export const Nav = () => {
 
       if (data.status === 'success') {
         setDataRed(data.redes);
-        console.log(data);
+        
       } else {
         console.log(data.message);
       }

@@ -28,8 +28,7 @@ export const CrearPublicacion = () => {
     e.preventDefault()
 
     let newPublicacion = form
-    console.log('crear publicacion', form)
-
+    
     if (!newPublicacion.categoria) {
       Swal.fire({
         title: "Falta la categoria",

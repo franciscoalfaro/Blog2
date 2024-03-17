@@ -38,10 +38,12 @@ export const Proyects = () => {
                 }
             })
             const data = await request.json()
+            console.log('proyecto',data)
 
             if (data.status === 'success') {
                 setProjects(data.proyectos)
                 setTotalPages(data.totalPages)
+                
 
             } else {
                 console.log(data.message)
@@ -52,13 +54,12 @@ export const Proyects = () => {
         }
     }
 
-    console.log('proyectos', projects)
 
 
     return (
         <section>
             <header className="major">
-                <h2>Mis Proyectos del usuario</h2>
+                <h2>Mis ultimos proyectos</h2>
             </header>
             <div className="posts">
                 {projects.length > 0 ? (

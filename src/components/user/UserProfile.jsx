@@ -7,7 +7,6 @@ export const UserProfile = () => {
 
 
   const { auth } = useAuth({})
-  console.log('asdsa', auth)
   const [page, setPage] = useState(1)
   const [stacks, setStacks] = useState([])
   const [totalPages, setTotalPages] = useState(1)
@@ -67,8 +66,7 @@ export const UserProfile = () => {
     try {
 
       const userId = auth._id
-      console.log(userId)
-
+     
       const request = await fetch(Global.url + 'stack/list/' + nextPage, {
         method: 'GET',
         headers: {

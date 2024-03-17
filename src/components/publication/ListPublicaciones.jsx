@@ -24,7 +24,7 @@ export const ListPublicaciones = () => {
             if (data.status === 'success') {
 
                 setUltimos(data.articulos);
-                console.log(data.articulos)
+                
             } else {
                 console.log(data.message);
             }

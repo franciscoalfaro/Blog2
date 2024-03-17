@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { Global } from '../../helpers/Global'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import avatar from '../../assets/img/fondo2.png'
 
 export const MisPublicaciones = () => {
@@ -43,9 +43,6 @@ export const MisPublicaciones = () => {
         setArticulos(data.articulos)
         setTotalPages(data.totalPages)
 
-        console.log(data)
-
-
       } else {
         console.log(data.message)
       }
@@ -68,7 +65,6 @@ export const MisPublicaciones = () => {
       });
 
       const data = await request.json(); // Espera a que la promesa se resuelva
-      console.log(data);
 
       if (data.status === "success") {
         listarMisPublicaciones();
@@ -91,13 +87,13 @@ export const MisPublicaciones = () => {
       <header className="main">
         <h1>Mis Publicaciones</h1>
       </header>
-      {articulos.length > 0 && (
+      {articulos.length > 0 ? (
         <div>
           {articulos.map((articulo) => (
             <div key={articulo._id} className="publicacion">
               {auth._id === articulo.userId &&
-               <i onClick={() => DeletePublicacion(articulo._id)} className="bi bi-trash"><span>Eliminar publicacion</span></i>
-               
+                <i onClick={() => DeletePublicacion(articulo._id)} className="bi bi-trash"><span>Eliminar publicacion</span></i>
+
               }
               <span className='image publi'>
                 {articulo.imagen !== "default.png" ? (
@@ -107,7 +103,7 @@ export const MisPublicaciones = () => {
                 )}
               </span>
 
-  
+
               <h2>{articulo.titulo}</h2>
               <p>{articulo.descripcion}</p>
               <p>{articulo.contenido}</p>
@@ -127,6 +123,13 @@ export const MisPublicaciones = () => {
               <span className={`button ${page === totalPages ? 'disabled' : ''}`} onClick={nextPage}>Siguiente</span></li>
           </ul>
         </div>
+      ) : (
+        <>
+          <div>No haz creado publicaciones.</div>
+          <Link to={"/auth/publicar"}>Crea tu primera publicacion</Link>
+        </>
+
+
       )}
     </section>
   )

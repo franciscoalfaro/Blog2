@@ -61,13 +61,13 @@ export const Feed = () => {
         <header className="main">
           <h1>Feed Publicaciones</h1>
         </header>
-        {articulos.length > 0 && (
+        {articulos.length > 0 ? (
           <div>
             {articulos.map((articulo) => (
               <div key={articulo._id}>
                 <span className='image publi'>
-                  {articulos.imagen !== "default2.png" ? (
-                    <img src={Global.url + "articulo/media/" + articulos.imagen} alt='' />
+                  {articulo.imagen !== "default2.png" ? (
+                    <img src={Global.url + "articulo/media/" + articulo.imagen} alt='' />
                   ) : (
                     <img src={avatar} alt='' />
                   )}
@@ -92,12 +92,14 @@ export const Feed = () => {
               <li><span className={`button ${page === 1 ? 'disabled' : ''}`} onClick={() => setPage(page - 1)}>Anterior</span></li>
               {Array.from({ length: totalPages }, (_, index) => (
                 <li key={index}>
-                  <a to="#" className={`page ${page === index + 1 ? 'active' : ''}`} onClick={() => setPage(index + 1)} > {index + 1} </a></li>))}
-              <li>
-                <span className={`button ${page === totalPages ? 'disabled' : ''}`} onClick={nextPage}>Siguiente</span></li>
+                  <a to="#" className={`page ${page === index + 1 ? 'active' : ''}`} onClick={() => setPage(index + 1)} > {index + 1} </a>
+                </li>
+              ))}
+              <li><span className={`button ${page === totalPages ? 'disabled' : ''}`} onClick={nextPage}>Siguiente</span></li>
             </ul>
           </div>
-
+        ) : (
+          <div>No existen publicaciones.</div>
         )}
 
 

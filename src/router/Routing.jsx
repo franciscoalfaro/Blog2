@@ -19,7 +19,8 @@ import { Perfiles } from '../components/user/Perfiles'
 import { About } from '../components/user/About'
 import { MisPublicaciones } from '../components/publication/MisPublicaciones'
 import { UserProfile } from '../components/user/UserProfile'
-import {AddStack} from '../components/user/AddStack'
+import { Stack } from '../components/user/Stack'
+
 
 
 
@@ -52,7 +53,7 @@ export const Routing = () => {
             <Route path='publicacion/:id' element={<Publicacion></Publicacion>}></Route>
             
             <Route path='search/:articulo' element={<Search></Search>}></Route>
-            <Route path='agregarstack' element={<AddStack></AddStack>}></Route>
+            <Route path='agregarstack' element={<Stack></Stack>}></Route>
 
             <Route path='perfiles/' element={<Perfiles></Perfiles>}></Route>
             <Route path='perfil/:id' element={<Profile></Profile>}></Route>

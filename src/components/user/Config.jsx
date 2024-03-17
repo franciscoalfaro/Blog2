@@ -9,9 +9,6 @@ export const Config = () => {
   const { auth, setAuth } = useAuth()
   const [saved, setSaved] = useState("not_saved")
 
-  console.log(auth)
-
-
   const updateUser = async (e) => {
     e.preventDefault()
 

@@ -48,7 +48,6 @@ export const Publicacion = () => {
       });
 
       const data = await request.json(); // Espera a que la promesa se resuelva
-      console.log(data);
 
       if (data.status === 'success') {
         articuloObtenido();
@@ -62,7 +61,7 @@ export const Publicacion = () => {
 
   return (
     <>
-      {error ? ( // Si hay un error, mostramos el mensaje de error
+      {error ? (
         <p>{error}</p>
       ) : (
         <>
@@ -70,7 +69,7 @@ export const Publicacion = () => {
             <>
               <section>
                 <header className='main'>
-                  <h1>Articulo</h1>
+                  <h1>{articulobuscado.titulo}</h1>
                 </header>
 
                 <span className='image publi'>

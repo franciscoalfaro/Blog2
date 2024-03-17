@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Sidebar } from './Sidebar'
 import { Header } from './Header'
 import { Footer } from './Footer'
@@ -10,15 +10,39 @@ export const PublicLayout = () => {
 
   const { auth } = useAuth()
   const navigate = useNavigate()
+  const [sidebarActive, setSidebarActive] = useState(true);
 
-  const [sidebarActive, setSidebarActive] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024); // Cambia el valor según el tamaño deseado
+      if(window.innerWidth <= 1024){
+        setSidebarActive(false);
+      }else{
+        setSidebarActive(true);
+      }
+      
+    };
+
+    handleResize(); // Llama a la función al principio para establecer el estado inicial
+    window.addEventListener('resize', handleResize); // Agrega el event listener
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // Remueve el event listener en el cleanup
+    };
+  }, []);
+
+
+
 
   const toggleSidebar = () => {
     setSidebarActive(!sidebarActive);
   };
   const handleLinkClick = () => {
     // Oculta el sidebar cuando se hace clic en un enlace dentro del sidebar
-    setSidebarActive(false);
+    if (isMobile) {
+      setSidebarActive(false);
+    }
 
   };
 

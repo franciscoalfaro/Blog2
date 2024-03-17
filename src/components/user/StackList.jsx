@@ -46,6 +46,7 @@ export const StackList = () => {
             }
 
         } catch (error) {
+            console.log(data.error)
 
         }
     }
