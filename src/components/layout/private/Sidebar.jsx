@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth';
 import ListPublicaciones from '../../publication/ListPublicaciones';
 
-export const Sidebar = () => {
+export const Sidebar = ({ onLinkClick }) => {
     const { auth } = useAuth({})
     const navegar = useNavigate();
  
@@ -34,13 +34,13 @@ export const Sidebar = () => {
                     <h2>Menu</h2>
                 </header>
                 <ul>
-                    <li><NavLink to="/auth/inicio">Inicio</NavLink></li>
-                    <li><NavLink to="/auth/agregarstack">Agregar Stack</NavLink></li>
-                    <li><NavLink to="/auth/publicar/">Crear publicacion</NavLink></li>
-                    <li><NavLink to="/auth/mis-publicaciones">Mis Publicaciones</NavLink></li>
-                    <li><NavLink to="/auth/miperfil">Mis Datos</NavLink></li>
-                    <li><NavLink to="/auth/perfiles">otros perfiles</NavLink></li>
-                    <li><NavLink to="/auth/logout">Cerrar sesion</NavLink></li>
+                    <li><NavLink to="/auth/inicio" onClick={onLinkClick}>Inicio</NavLink></li>
+                    <li><NavLink to="/auth/agregarstack" onClick={onLinkClick}>Agregar Stack</NavLink></li>
+                    <li><NavLink to="/auth/publicar/" onClick={onLinkClick}>Crear publicacion</NavLink></li>
+                    <li><NavLink to="/auth/mis-publicaciones" onClick={onLinkClick}>Mis Publicaciones</NavLink></li>
+                    <li><NavLink to="/auth/miperfil" onClick={onLinkClick}>Mis Datos</NavLink></li>
+                    <li><NavLink to="/auth/perfiles" onClick={onLinkClick}>otros perfiles</NavLink></li>
+                    <li><NavLink to="/auth/logout" onClick={onLinkClick}>Cerrar sesion</NavLink></li>
                 </ul>
             </nav>
             <section>

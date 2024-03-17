@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import avatar from '../../../src/assets/img/logo1.png'
+import useAuth from '../../hooks/useAuth'
+import { Global } from '../../helpers/Global'
 
 export const Inicio = () => {
-    const params = useParams()
+    const {auth} = useAuth({})
+
 
     return (
         <>
@@ -21,7 +24,8 @@ export const Inicio = () => {
                     </ul>
                 </div>
                 <span className="image object">
-                    <img src={avatar} alt="" />
+                    {auth.imagen === 'default.png' && <img src={avatar} className="" alt=""></img>}
+                    {auth.imagen !== 'default.png' && <img src={Global.url + "user/avatar/" + auth.imagen} className="" alt=""></img>}
                 </span>
             </section>
 

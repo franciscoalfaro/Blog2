@@ -11,42 +11,42 @@ export const Nav = () => {
     listRedesuser()
   }, [params])
 
+
+
+
   const listRedesuser = async () => {
-    const userParams = params.id;
-    const userIdentity = '65a2bd122bfbd8c09b1325bd';
-    let usuarioId
-  
-
-    
-    if (userParams) {
-      usuarioId = userParams;
-    } else {
-      usuarioId = userIdentity;
-    }
-
     try {
-      const request = await fetch(Global.url + 'redes/listuser/' + usuarioId, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
+      const usuarioId = params.id;
 
-      })
-      const data = await request.json()
-
-      if (data.status === 'success') {
-        setDataRed(data.redes)
-        console.log(data)
-
+      let request;
+      if (usuarioId === undefined) {
+        request = await fetch(Global.url + 'redes/listuser/', {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
       } else {
-        console.log(data.message)
+        request = await fetch(Global.url + 'redes/listuser/' + usuarioId, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
       }
 
-    } catch (error) {
-      console.log(data.message)
-    }
+      const data = await request.json();
 
-}
+      if (data.status === 'success') {
+        setDataRed(data.redes);
+        console.log(data);
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   return (
     <header id="header">

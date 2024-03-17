@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import ReactTimeAgo from 'react-time-ago';
 import { Spiner } from '../../hooks/Spiner';
 import useAuth from '../../hooks/useAuth';
-import avatar from '../../assets/img/logo1.png';
+import avatar from '../../assets/img/fondo2.png'
 
 export const Publicacion = () => {
   const params = useParams();
@@ -79,7 +79,7 @@ export const Publicacion = () => {
                       <span>Eliminar publicacion</span>
                     </i>
                   )}
-                  {articulobuscado.imagen !== 'default2.png' ? (
+                  {articulobuscado.imagen !== 'default.png' ? (
                     <img src={Global.url + 'articulo/media/' + articulobuscado.imagen} alt='' />
                   ) : (
                     <img src={avatar} alt='' />

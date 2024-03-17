@@ -7,6 +7,7 @@ export const UserProfile = () => {
 
 
   const { auth } = useAuth({})
+  console.log('asdsa', auth)
   const [page, setPage] = useState(1)
   const [stacks, setStacks] = useState([])
   const [totalPages, setTotalPages] = useState(1)
@@ -93,8 +94,6 @@ export const UserProfile = () => {
 
 
 
-
-
   return (
     <>
       <section id="banner">
@@ -115,7 +114,8 @@ export const UserProfile = () => {
           </ul>
         </div>
         <span className="image object">
-          <img src="../src/assets/img/logo1.png" alt="" />
+          {auth.image === 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="" alt=""></img>}
+          {auth.image !== 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="" alt=""></img>}
         </span>
       </section>
 

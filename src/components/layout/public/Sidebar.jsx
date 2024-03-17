@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth';
 import { ListPublicaciones } from '../../publication/ListPublicaciones';
 
-export const Sidebar = () => {
+export const Sidebar = ({ onLinkClick }) => {
     const { auth } = useAuth()
 
     const navegar = useNavigate();
@@ -37,11 +37,11 @@ export const Sidebar = () => {
                     <h2>Menu</h2>
                 </header>
                 <ul>
-                    <li><NavLink to="/inicio">Inicio</NavLink></li>
-                    <li><NavLink to="/publicaciones">publicaciones</NavLink></li>
-                    <li><NavLink to="/login">Iniciar sesion</NavLink></li>
-                    <li><NavLink to="/registro">Crear Cuenta</NavLink></li>
-                    <li><NavLink to="/perfiles">Ultimos perfiles</NavLink></li>
+                    <li><NavLink to="/inicio" onClick={onLinkClick}>Inicio</NavLink ></li>
+                    <li><NavLink to="/publicaciones" onClick={onLinkClick}>publicaciones</NavLink></li>
+                    <li><NavLink to="/login" onClick={onLinkClick}>Iniciar sesion</NavLink></li>
+                    <li><NavLink to="/registro" onClick={onLinkClick}>Crear Cuenta</NavLink></li>
+                    <li><NavLink to="/perfiles" onClick={onLinkClick}>Ultimos perfiles</NavLink></li>
                 </ul>
             </nav>
             <section>

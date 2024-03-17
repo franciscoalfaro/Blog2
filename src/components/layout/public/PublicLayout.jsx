@@ -11,11 +11,17 @@ export const PublicLayout = () => {
   const { auth } = useAuth()
   const navigate = useNavigate()
 
-  const [sidebarActive, setSidebarActive] = useState(true);
+  const [sidebarActive, setSidebarActive] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarActive(!sidebarActive);
   };
+  const handleLinkClick = () => {
+    // Oculta el sidebar cuando se hace clic en un enlace dentro del sidebar
+    setSidebarActive(false);
+
+  };
+
 
   return (
     <>
@@ -28,7 +34,7 @@ export const PublicLayout = () => {
         </div>
         <div id="sidebar" className={sidebarActive ? 'active' : 'inactive'}>
           <div className="inner">
-            <Sidebar></Sidebar>
+            <Sidebar onLinkClick={handleLinkClick}></Sidebar>
             <Footer></Footer>
           </div>
           <Link to="#" className="toggle" onClick={toggleSidebar}>
