@@ -26,6 +26,7 @@ export const Publicacion = () => {
         },
       });
       const data = await request.json();
+      console.log(data.articulo);
 
       if (data.status === 'success') {
         setArticulobuscado(data.articulo);
@@ -58,6 +59,9 @@ export const Publicacion = () => {
       setError(error.message); // Configuramos el mensaje de error
     }
   };
+
+
+
 
   return (
     <>
@@ -93,6 +97,7 @@ export const Publicacion = () => {
                   Publicado por {articulobuscado.userId.name} {articulobuscado.userId.surname}{' '}
                   <ReactTimeAgo date={new Date(articulobuscado.fecha)}></ReactTimeAgo>
                 </p>
+               
 
                 {auth && auth._id ? (
                   <li>
@@ -104,9 +109,16 @@ export const Publicacion = () => {
                   </li>
                 )}
 
-                <li>
-                  <Link to={`/auth/acerca/${articulobuscado.userId._id}`}>volver atras</Link>
-                </li>
+                {auth && auth._id ? (
+                  <li>
+                    <Link to={`/auth/acerca/${articulobuscado.userId._id}`}>volver atras</Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link to={`/acerca/${articulobuscado.userId._id}`}>volver atras</Link>
+                  </li>
+                )}
+
               </section>
             </>
           ) : (

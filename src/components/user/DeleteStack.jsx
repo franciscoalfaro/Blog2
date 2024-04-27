@@ -9,10 +9,12 @@ export const DeleteStack = () => {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [items, setItems] = useState([]);
+
   const myInputRef = useRef(null);
 
   const handleModalShow = () => {
     myInputRef.current.focus();
+
   };
 
   useEffect(() => {
@@ -22,14 +24,18 @@ export const DeleteStack = () => {
   const nextPage = () => {
     let next = page + 1;
     setPage(next);
+
   };
+
 
   const getStackUser = async (nextPage) => {
     const userId = auth._id
     let dataStack = await GetStack(userId, nextPage)
     setItems(dataStack.stack)
     setTotalPages(dataStack.totalPages)
-  };
+  }
+
+
 
   const handleDeleteItem = async (stackId, index) => {
     try {
@@ -39,8 +45,10 @@ export const DeleteStack = () => {
           'Content-Type': 'application/json',
           'Authorization': localStorage.getItem('token')
         }
+
       })
       const data = await request.json()
+
 
       if (data.status === 'success') {
         const newItems = [...items];
@@ -48,18 +56,29 @@ export const DeleteStack = () => {
         setItems(newItems);
         getStackUser()
       }
+
     } catch (error) {
       console.error('Error al obtener los datos:', error);
+
     }
+
+
+
   };
 
   useEffect(() => {
     console.log("DeleteStack renderizado");
-  }, []);
+}, []);
+
+
+
+
+
+
 
   return (
     <>
-      <ul className="list-group list-group-numbered">
+      <ol className="list-group list-group-numbered">
         {items && items.length > 0 ? (
           items.map((item, index) => (
             <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
@@ -72,29 +91,35 @@ export const DeleteStack = () => {
           <div>
             Sin stack
           </div>
+          
         )}
-      </ul>
+      </ol>
+
 
       {items && items.length > 0 && (
-        <nav aria-label="...">
-          <ul className="pagination">
-            <li><span className={`button ${page === 1 ? 'disabled' : ''}`} onClick={() => setPage(page - 1)}>Anterior</span></li>
-            {Array.from({ length: totalPages }, (_, index) => (
-              <li key={index}>
-                <a href="#" className={`page ${page === index + 1 ? 'active' : ''}`} onClick={() => setPage(index + 1)}> {index + 1} </a>
-              </li>
-            ))}
-            <li>
-              <span className={`button ${page === totalPages ? 'disabled' : ''}`} onClick={nextPage}>Siguiente</span>
+      <nav aria-label="...">
+
+        <ul className="pagination">
+          <li><span className={`button ${page === 1 ? 'disabled' : ''}`} onClick={() => setPage(page - 1)}>Anterior</span></li>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <li key={index}>
+              <a href="#" className={`page ${page === index + 1 ? 'active' : ''}`} onClick={() => setPage(index + 1)}> {index + 1} </a>
             </li>
-          </ul>
-        </nav>
+          ))}
+          <li>
+            <span className={`button ${page === totalPages ? 'disabled' : ''}`} onClick={nextPage}>Siguiente</span>
+          </li>
+        </ul>
+
+      </nav>
       )}
 
       <div className="modal" id="myModal" tabIndex="-1" ref={myInputRef} hidden>
         <div className="modal-dialog">
           <div className="modal-content">
+
             <div className="modal-body">
+
               <div className='row gtr-uniform'>
                 <div className='col-3 col-12-xsmall '>
                   <input type="text" name="name" className="form-control" aria-label="name" aria-describedby="email-addon" required></input>
@@ -106,10 +131,12 @@ export const DeleteStack = () => {
                   <button className="btn btn-submit" data-bs-dismiss="modal"><span>Actualizar</span></button>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </>
+    
   );
 };

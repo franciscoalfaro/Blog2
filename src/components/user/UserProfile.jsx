@@ -111,7 +111,7 @@ export const UserProfile = () => {
 
           </ul>
         </div>
-        <span className="image object">
+        <span className="image perfillist">
           {auth.image === 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="" alt=""></img>}
           {auth.image !== 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="" alt=""></img>}
         </span>

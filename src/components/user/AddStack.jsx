@@ -3,6 +3,7 @@ import useAuth from '../../hooks/useAuth'
 import { Global } from '../../helpers/Global'
 import { useForm } from '../../hooks/useForm'
 import { GetStack } from '../../helpers/GetStack'
+import { DeleteStack } from './DeleteStack'
 
 
 
@@ -30,14 +31,18 @@ export const AddStack = () => {
         const data = await request.json()
     
         if (data.status === "success") {
+            
+            setAgregarStack(data)
 
             Swal.fire({
                 position: 'center',
                 icon: 'success',
                 title: 'stack agregado con exito',
                 showConfirmButton: true
-              });
-              setTimeout(() => { window.location.href = "/auth/agregarstack" }, 100);
+            });
+            setTimeout(() => { window.location.reload() }, 1000);
+           
+           
 
     
         }else{

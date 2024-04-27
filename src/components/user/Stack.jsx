@@ -3,7 +3,6 @@ import { AddStack } from './AddStack'
 import { DeleteStack } from './DeleteStack'
 
 export const Stack = () => {
-
     
     return (
         <>
