@@ -22,29 +22,40 @@ export const Search = () => {
 
     useEffect(() => {
         buscarArticulos(page)
-      }, [page])
+    }, [page])
 
     useEffect(() => {
         buscarArticulos(1);
     }, [articulo]);
 
     const buscarArticulos = async (nextPage = 1) => {
-        const request = await fetch(Global.url + 'articulo/search/' + params.articulo + '/' + nextPage, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
 
-        const data = await request.json();
+        try {
+            const request = await fetch(Global.url + 'articulo/search/' + params.articulo + '/' + nextPage, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
 
-        if (data.status === 'success') {
-            setArticulos(data.resultados);
-            setTotalPages(data.totalPages); 
+            const data = await request.json();
 
-        } else {
+            if (data.status === 'success') {
+                setArticulos(data.resultados);
+                setTotalPages(data.totalPages);
+
+            } else {
+                setArticulos([])
+
+            }
+
+        } catch (error) {
             console.log(data.message);
+
         }
+
+
+
     };
 
     return (
@@ -52,6 +63,7 @@ export const Search = () => {
             <section>
                 <header className="main">
                     <h1>Resultado de tu busqueda</h1>
+                    <p>buscaste: {params.articulo}</p>
                 </header>
                 {articulos.length > 0 ? (
                     <div>
@@ -74,8 +86,8 @@ export const Search = () => {
                         <ul className="pagination">
                             <li><span className={`button ${page === 1 ? 'disabled' : ''}`} onClick={() => setPage(page - 1)}>Anterior</span></li>
                             {Array.from({ length: totalPages }, (_, index) => (
-                            <li key={index}> 
-                            <a to="#" className={`page ${page === index + 1 ? 'active' : ''}`} onClick={() => setPage(index + 1)} > {index + 1} </a></li>))}
+                                <li key={index}>
+                                    <a to="#" className={`page ${page === index + 1 ? 'active' : ''}`} onClick={() => setPage(index + 1)} > {index + 1} </a></li>))}
                             <li>
                                 <span className={`button ${page === totalPages ? 'disabled' : ''}`} onClick={nextPage}>Siguiente</span></li>
                         </ul>
