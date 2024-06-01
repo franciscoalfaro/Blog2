@@ -179,7 +179,7 @@ export const Config = () => {
       <div className="baner">
         <h1 className="text-white mb-2 mt-5">Mis Datos</h1>
         <span className="image perfil">
-        {auth.image == 'default.png' && <img src={avatar} className="image perfil" alt="Foto de perfil"></img>}
+        {auth.image == 'default.png' && <img src={Global.url + "user/avatar/"} className="image perfil" alt="Foto de perfil"></img>}
         {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="image perfil" alt="Foto de perfil"></img>}
         </span>
         

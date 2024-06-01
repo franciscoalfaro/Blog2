@@ -66,11 +66,8 @@ export const Feed = () => {
             {articulos.map((articulo) => (
               <div key={articulo._id}>
                 <span className='image publi'>
-                  {articulo.imagen !== "default2.png" ? (
-                    <img src={Global.url + "articulo/media/" + articulo.imagen} alt='' />
-                  ) : (
-                    <img src={avatar} alt='' />
-                  )}
+                  {articulo.imagen == 'default.png' && <img src={Global.url + "articulo/media/default.png"}  alt="imagen articulo"></img>}
+                  {articulo.imagen != 'default.png' && <img src={Global.url + "articulo/media/" + articulo.imagen}  alt="imagen articulo"></img>}
                 </span>
 
                 <h2>{articulo.titulo}</h2>
