@@ -2219,6 +2219,13 @@ input[type="radio"]+label:before {
   max-width: 50%
 }
 
+
+.articulo {
+  border-radius: 0.55em;
+  display: block;
+  max-width: 50%
+}
+
 .image.perfillist {
   border-radius: 2.375em;
   display: block;

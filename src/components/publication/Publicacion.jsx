@@ -84,7 +84,7 @@ export const Publicacion = () => {
 
                 </span>
 
-                <img src={Global.url + 'articulo/media/' + articulobuscado.imagen} alt='' />
+                <img src={Global.url + 'articulo/media/' + articulobuscado.imagen} alt='' className='articulo'/>
 
                 <hr className='major' />
                 <h2>{articulobuscado.titulo}</h2>

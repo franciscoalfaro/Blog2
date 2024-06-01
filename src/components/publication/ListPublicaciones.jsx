@@ -44,8 +44,8 @@ export const ListPublicaciones = () => {
                         {ultimos.map((ultimo) => (
                             <article key={ultimo._id} className='image'>
                                 <NavLink className='image'>
-                                    {ultimo.imagen != "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} alt=''></img>}
-                                    {ultimo.imagen == "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen}></img>}
+                                    {ultimo.imagen != "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} className='image' alt=''></img>}
+                                    {ultimo.imagen == "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} className='image'></img>}
                                 </NavLink>
                                 <p>{ultimo.titulo}</p>
                                 <p>{ultimo.descripcion}</p>

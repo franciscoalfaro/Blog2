@@ -68,6 +68,8 @@ export const Feed = () => {
                 <span className='image publi'>
                   {articulo.imagen == 'default.png' && <img src={Global.url + "articulo/media/default.png"}  alt="imagen articulo"></img>}
                   {articulo.imagen != 'default.png' && <img src={Global.url + "articulo/media/" + articulo.imagen}  alt="imagen articulo"></img>}
+
+                  {articulo.imagen && <img src={Global.url + "publication/media/" + articulo.imagen} alt="Imagen de la publicación" className="img-fluid custom-img" />}
                 </span>
 
                 <h2>{articulo.titulo}</h2>
