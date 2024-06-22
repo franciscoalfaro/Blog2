@@ -38,6 +38,7 @@ export const Sidebar = ({ onLinkClick }) => {
                     <li><NavLink to="/auth/agregarstack" onClick={onLinkClick}>Mi Stack</NavLink></li>
                     <li><NavLink to="/auth/publicar/" onClick={onLinkClick}>Crear publicacion</NavLink></li>
                     <li><NavLink to="/auth/mis-publicaciones" onClick={onLinkClick}>Mis Publicaciones</NavLink></li>
+                    <li><NavLink to="/auth/publicaciones" onClick={onLinkClick}>publicaciones</NavLink></li>
                     <li><NavLink to="/auth/miperfil" onClick={onLinkClick}>Mis Datos</NavLink></li>
                     <li><NavLink to="/auth/perfiles" onClick={onLinkClick}>otros perfiles</NavLink></li>
                     <li><NavLink to="/auth/logout" onClick={onLinkClick}>Cerrar sesion</NavLink></li>

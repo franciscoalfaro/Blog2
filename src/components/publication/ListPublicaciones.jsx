@@ -24,7 +24,7 @@ export const ListPublicaciones = () => {
             if (data.status === 'success') {
 
                 setUltimos(data.articulos);
-                
+
             } else {
                 console.log(data.message);
             }
@@ -43,10 +43,19 @@ export const ListPublicaciones = () => {
                     <div className="mini-posts">
                         {ultimos.map((ultimo) => (
                             <article key={ultimo._id} className='image'>
-                                <NavLink className='image'>
-                                    {ultimo.imagen != "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} className='image' alt=''></img>}
-                                    {ultimo.imagen == "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} className='image'></img>}
-                                </NavLink>
+
+                                {auth && auth._id ? (
+                                    <NavLink to={`/auth/publicacion/${ultimo._id}`} className='image'>
+                                        {ultimo.imagen != "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} className='image' alt=''></img>}
+                                        {ultimo.imagen == "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} className='image'></img>}
+                                    </NavLink>
+                                ) : (
+                                    <NavLink to={`/publicacion/${ultimo._id}`} className='image'>
+                                        {ultimo.imagen != "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} className='image' alt=''></img>}
+                                        {ultimo.imagen == "default.png" && <img src={Global.url + "articulo/media/" + ultimo.imagen} className='image'></img>}
+                                    </NavLink>
+                                )}
+
                                 <p>{ultimo.titulo}</p>
                                 <p>{ultimo.descripcion}</p>
                                 <p>{ultimo.Autor} {ultimo.ApellidoAutor}</p>

@@ -12,6 +12,7 @@ export const CrearPublicacion = () => {
   const { form, changed } = useForm({})
   const [publicacion, setPublicacion] = useState([])
   const [categorias, setCategorias] = useState([])
+  const [proyecto, setProyecto] = useState(null)
 
   const [newCategorias, setNewCategorias] = useState([])
 
@@ -28,7 +29,7 @@ export const CrearPublicacion = () => {
     e.preventDefault()
 
     let newPublicacion = form
-    
+
     if (!newPublicacion.categoria) {
       Swal.fire({
         title: "Falta la categoria",
@@ -49,7 +50,7 @@ export const CrearPublicacion = () => {
       const data = await request.json()
 
       if (data.status === "success") {
-       
+
         setPublicacion()
         Swal.fire({
           position: 'center',
@@ -142,12 +143,14 @@ export const CrearPublicacion = () => {
 
     }
     const myForm = document.querySelector("#articulo-form")
-    myForm.reset()  
-
-
+    myForm.reset()
 
   }
 
+  const crearProyecto = async (e) => {
+    e.preventDefault()
+    console.log('proyecto')
+  }
 
   useEffect(() => {
     listCategorias()
@@ -169,7 +172,7 @@ export const CrearPublicacion = () => {
 
       if (data.status === "success") {
         setCategorias(data.categorias)
-      
+
 
       }
     } catch (error) {
@@ -243,67 +246,146 @@ export const CrearPublicacion = () => {
     changed(event);
   };
 
+  const evntoArticulo = () => {
+    console.log('aqui')
+    setProyecto('articulo')
+
+  }
+
+  const evntoProyecto = () => {
+    console.log('aqui proyecto')
+    setProyecto('proyecto')
+  }
+  console.log(proyecto)
+
 
   return (
     <>
       <div className="col-lg-5 text-center mx-auto">
         <h1 className="text-white mb-2 mt-5">Hola que publicaras hoy!</h1>
-
       </div>
-      <form id='articulo-form' onSubmit={crearArticulo}>
-        <div className="row gtr-uniform">
-          <div className="col-6 col-12-xsmall">
-            <input type="text" name="titulo" placeholder="Titulo" onChange={changed} required></input>
-          </div>
+      <button onClick={evntoArticulo}>Articulo</button>
+      <button onClick={evntoProyecto}>Proyecto</button>
 
-          <div className="col-6 col-12-xsmall">
-            <input type="text" name="descripcion" placeholder="Descripcion" onChange={changed} required></input>
-          </div>
+      {proyecto === 'articulo' && (
+        <form id='articulo-form' onSubmit={crearArticulo}>
+          <h1>articulo</h1>
+          <div className="row gtr-uniform">
+            <div className="col-6 col-12-xsmall">
+              <input type="text" name="titulo" placeholder="Titulo" onChange={changed} required></input>
+            </div>
 
-          <div className="upload-container">
-            <input type="file" name='file0' id='file' onChange={changed}></input>
-          </div>
+            <div className="col-6 col-12-xsmall">
+              <input type="text" name="descripcion" placeholder="Descripcion" onChange={changed} required></input>
+            </div>
 
-          <div className="col-12">
-            <select name="categoria" value={selectedOption} onChange={eventosDistintos} className='select' required>
-              <option value="">Selecciona una categoria</option>
-              {categorias.map((item) => (
-                <option key={item._id} value={item.name} >
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
+            <div className="upload-container">
+              <input type="file" name='file0' id='file' onChange={changed}></input>
+            </div>
 
-          <div className="col-3 col-12-xsmall">
-            <label>Quieres crear una nueva categoria?</label>
-            <button type='button' className='button primary small' onClick={crearcategorialSwal}>
-              Crear Nueva Categoría
-            </button>
-          </div>
+            <div className="col-12">
+              <select name="categoria" value={selectedOption} onChange={eventosDistintos} className='select' required>
+                <option value="">Selecciona una categoria</option>
+                {categorias.map((item) => (
+                  <option key={item._id} value={item.name} >
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="col-3 col-12-xsmall">
-            <label>Quieres eliminar una categoria?</label>
-            <button type='button' className='button primary small' onClick={toggleCategoria}>
-              {categoriaOculta ? 'Eliminar Categoria' : 'Ocultar'}
-            </button>
+            <div className="col-3 col-12-xsmall">
+              <label>Quieres crear una nueva categoria?</label>
+              <button type='button' className='button primary small' onClick={crearcategorialSwal}>
+                Crear Nueva Categoría
+              </button>
+            </div>
 
-            <div className="ocultado" id='ocultado' hidden={categoriaOculta}>
-              <EliminarCategoriasModal forceUpdate={() => setForceUpdate(!forceUpdate)}></EliminarCategoriasModal>
+            <div className="col-3 col-12-xsmall">
+              <label>Quieres eliminar una categoria?</label>
+              <button type='button' className='button primary small' onClick={toggleCategoria}>
+                {categoriaOculta ? 'Eliminar Categoria' : 'Ocultar'}
+              </button>
+
+              <div className="ocultado" id='ocultado' hidden={categoriaOculta}>
+                <EliminarCategoriasModal forceUpdate={() => setForceUpdate(!forceUpdate)}></EliminarCategoriasModal>
+              </div>
+            </div>
+
+            <div className="col-12">
+              <textarea name="contenido" placeholder="Tu articulo" rows="6" onChange={changed} required></textarea>
+            </div>
+            <div className="col-12">
+              <ul className="actions">
+                <li><input type="submit" value="Publicar" className="primary" /></li>
+                <li><input type="reset" value="Limpiar" /></li>
+              </ul>
             </div>
           </div>
+        </form>
+      )}
+      {proyecto === 'proyecto' && (
+        <form id='proyecto-form' onSubmit={crearProyecto}>
+          <h1>Proyecto</h1>
+          <div className="row gtr-uniform">
+            <div className="col-6 col-12-xsmall">
+              <input type="text" name="titulo" placeholder="Titulo" onChange={changed} required></input>
+            </div>
 
-          <div className="col-12">
-            <textarea name="contenido" placeholder="Tu articulo" rows="6" onChange={changed} required></textarea>
+            <div className="col-6 col-12-xsmall">
+              <input type="text" name="descripcion" placeholder="Descripcion" onChange={changed} required></input>
+            </div>
+
+            <div className="upload-container">
+              <input type="file" name='file0' id='file' onChange={changed}></input>
+            </div>
+
+            <div className="col-12">
+              <select name="categoria" value={selectedOption} onChange={eventosDistintos} className='select' required>
+                <option value="">Selecciona una categoria</option>
+                {categorias.map((item) => (
+                  <option key={item._id} value={item.name} >
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="col-3 col-12-xsmall">
+              <label>Quieres crear una nueva categoria?</label>
+              <button type='button' className='button primary small' onClick={crearcategorialSwal}>
+                Crear Nueva Categoría
+              </button>
+            </div>
+
+            <div className="col-3 col-12-xsmall">
+              <label>Quieres eliminar una categoria?</label>
+              <button type='button' className='button primary small' onClick={toggleCategoria}>
+                {categoriaOculta ? 'Eliminar Categoria' : 'Ocultar'}
+              </button>
+
+              <div className="ocultado" id='ocultado' hidden={categoriaOculta}>
+                <EliminarCategoriasModal forceUpdate={() => setForceUpdate(!forceUpdate)}></EliminarCategoriasModal>
+              </div>
+            </div>
+
+            <div className="col-12">
+              <textarea name="contenido" placeholder="Tu Proyecto" rows="6" onChange={changed} required></textarea>
+            </div>
+            <div className="col-12">
+              <ul className="actions">
+                <li><input type="submit" value="Publicar" className="primary" /></li>
+                <li><input type="reset" value="Limpiar" /></li>
+              </ul>
+            </div>
           </div>
-          <div className="col-12">
-            <ul className="actions">
-              <li><input type="submit" value="Publicar" className="primary" /></li>
-              <li><input type="reset" value="Limpiar" /></li>
-            </ul>
-          </div>
-        </div>
-      </form>
+        </form>
+
+      )}
+
+
+
+
 
 
     </>

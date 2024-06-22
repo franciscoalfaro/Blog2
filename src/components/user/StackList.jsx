@@ -67,7 +67,7 @@ export const StackList = () => {
                         stacks.map((stack) => (
                             <article key={stack._id}>
                                 <span className="icon">
-                                <img src={`/src/assets/img/${stack.name}.png`} className="img-iconos" ></img>
+                                <img src={`/${stack.name}.png`} className="img-iconos" ></img>
                                 </span>
                                 <div className="content">
                                     <h3>{stack.name}</h3>
